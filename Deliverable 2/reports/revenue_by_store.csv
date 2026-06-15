@@ -1,0 +1,11 @@
+store_name,city,state,store_type,total_revenue,total_profit,total_orders
+SportZone Mumbai,Mumbai,Maharashtra,Flagship,98729.1,37309.1,29
+SportZone Hyderabad,Hyderabad,Telangana,Outlet,98195.6,37045.6,22
+SportZone Kochi,Kochi,Kerala,Outlet,75510.15,30170.15,26
+SportZone Ahmedabad,Ahmedabad,Gujarat,Outlet,71660.4,26040.4,20
+SportZone Kolkata,Kolkata,West Bengal,Outlet,63646.5,23866.5,23
+SportZone Chennai,Chennai,Tamil Nadu,Outlet,59402.85,22182.85,15
+SportZone Jaipur,Jaipur,Rajasthan,Outlet,53165.9,19795.9,19
+SportZone Bengaluru,Bengaluru,Karnataka,Flagship,42219.55,16859.55,13
+SportZone Delhi,Delhi,Delhi,Flagship,33170.75,13010.75,20
+SportZone Pune,Pune,Maharashtra,Outlet,29307.35,12417.35,13

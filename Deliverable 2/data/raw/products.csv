@@ -1,0 +1,41 @@
+product_id,product_name,category,brand,unit_price,cost_price,supplier,stock_quantity
+P001,Cricket Bat,Cricket,SG,2499,1550,SportLine Distributors,50
+P002,Cricket Ball Pack,Cricket,Kookaburra,599,320,Elite Sports Supply,247
+P003,Batting Gloves,Cricket,SS,1299,700,ProGear Wholesale,165
+P004,Football,Football,Nivia,899,470,SportLine Distributors,83
+P005,Football Studs,Football,Adidas,3499,2300,Urban Sports Co,168
+P006,Goalkeeper Gloves,Football,Puma,1499,850,Elite Sports Supply,172
+P007,Badminton Racket,Badminton,Yonex,1799,980,ShuttlePro Traders,30
+P008,Shuttlecock Tube,Badminton,Li-Ning,749,410,ShuttlePro Traders,178
+P009,Badminton Shoes,Badminton,Yonex,2999,1900,Urban Sports Co,40
+P010,Tennis Racket,Tennis,Wilson,3499,2300,CourtKing Suppliers,127
+P011,Tennis Ball Can,Tennis,Head,499,250,CourtKing Suppliers,188
+P012,Tennis Shoes,Tennis,Nike,4299,2900,Urban Sports Co,169
+P013,Basketball,Basketball,Spalding,1299,760,Elite Sports Supply,164
+P014,Basketball Shoes,Basketball,Nike,4999,3300,Urban Sports Co,153
+P015,Skipping Rope,Fitness,Decathlon,399,180,FitMax Wholesale,100
+P016,Dumbbell Set,Fitness,Domyos,2999,1900,FitMax Wholesale,86
+P017,Yoga Mat,Fitness,Boldfit,799,420,FitMax Wholesale,72
+P018,Gym Gloves,Fitness,Decathlon,499,220,FitMax Wholesale,191
+P019,Resistance Band,Fitness,Boldfit,699,320,FitMax Wholesale,203
+P020,Running Shoes,Running,Adidas,3999,2600,Urban Sports Co,100
+P021,Running Shorts,Running,Puma,999,480,ActiveWear Hub,81
+P022,Sports T-Shirt,Sportswear,Puma,699,310,ActiveWear Hub,87
+P023,Track Pants,Sportswear,Nike,1599,850,ActiveWear Hub,121
+P024,Sports Jacket,Sportswear,Adidas,2999,1750,ActiveWear Hub,53
+P025,Swimming Goggles,Swimming,Speedo,799,390,AquaSport Traders,191
+P026,Swimming Cap,Swimming,Speedo,399,170,AquaSport Traders,185
+P027,Kickboard,Swimming,Decathlon,999,540,AquaSport Traders,96
+P028,Table Tennis Paddle,Table Tennis,Stag,999,520,Indoor Sports Supply,137
+P029,Table Tennis Balls,Table Tennis,Stag,299,120,Indoor Sports Supply,100
+P030,TT Table Net,Table Tennis,Stag,699,310,Indoor Sports Supply,212
+P031,Hockey Stick,Hockey,Cosco,1499,820,Elite Sports Supply,38
+P032,Hockey Ball,Hockey,Nivia,349,150,Elite Sports Supply,22
+P033,Boxing Gloves,Combat Sports,USI,1999,1100,ProGear Wholesale,137
+P034,Punching Bag,Combat Sports,USI,4499,3100,ProGear Wholesale,179
+P035,Cycling Helmet,Cycling,Btwin,1599,850,CyclePro Suppliers,164
+P036,Cycling Gloves,Cycling,Btwin,699,300,CyclePro Suppliers,45
+P037,Water Bottle,Accessories,Nike,499,190,ActiveWear Hub,38
+P038,Sports Bag,Accessories,Puma,1499,790,ActiveWear Hub,157
+P039,Wrist Band,Accessories,Nivia,199,70,SportLine Distributors,74
+P040,Ankle Support,Accessories,Boldfit,599,260,FitMax Wholesale,149

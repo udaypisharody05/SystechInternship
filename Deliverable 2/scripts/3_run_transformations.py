@@ -1,0 +1,44 @@
+import psycopg2
+from pathlib import Path
+from db_config import DB_CONFIG
+
+
+BASE_DIR = Path(__file__).resolve().parents[1]
+
+SQL_FILES = [
+    BASE_DIR / "sql" / "2_create_warehouse_tables.sql",
+    BASE_DIR / "sql" / "3_transform_raw_to_warehouse.sql"
+]
+
+
+def run_sql_file(cursor, file_path):
+    with open(file_path, "r", encoding="utf-8") as file:
+        sql_script = file.read()
+        cursor.execute(sql_script)
+
+    print(f"Executed {file_path.name}")
+
+
+def main():
+    try:
+        connection = psycopg2.connect(**DB_CONFIG)
+        cursor = connection.cursor()
+
+        for sql_file in SQL_FILES:
+            run_sql_file(cursor, sql_file)
+
+        connection.commit()
+        print("Warehouse transformation completed successfully.")
+
+    except Exception as error:
+        print("Error while running transformations:", error)
+
+    finally:
+        if "cursor" in locals():
+            cursor.close()
+        if "connection" in locals():
+            connection.close()
+
+
+if __name__ == "__main__":
+    main()

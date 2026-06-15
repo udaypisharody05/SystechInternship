@@ -1,0 +1,11 @@
+store_id,store_name,city,state,store_type,opening_date,manager_name
+S001,SportZone Bengaluru,Bengaluru,Karnataka,Flagship,2022-06-28,Amit Rao
+S002,SportZone Mumbai,Mumbai,Maharashtra,Flagship,2021-09-29,Suresh Menon
+S003,SportZone Delhi,Delhi,Delhi,Flagship,2022-12-16,Karthik Iyer
+S004,SportZone Chennai,Chennai,Tamil Nadu,Outlet,2025-12-10,Raj Malhotra
+S005,SportZone Hyderabad,Hyderabad,Telangana,Outlet,2021-05-21,Farhan Khan
+S006,SportZone Kochi,Kochi,Kerala,Outlet,2025-12-06,Deepak Nair
+S007,SportZone Pune,Pune,Maharashtra,Outlet,2022-05-16,Vivek Gupta
+S008,SportZone Kolkata,Kolkata,West Bengal,Outlet,2023-01-27,Sanjay Bose
+S009,SportZone Jaipur,Jaipur,Rajasthan,Outlet,2022-08-07,Arvind Patel
+S010,SportZone Ahmedabad,Ahmedabad,Gujarat,Outlet,2021-11-20,Nitin Joshi

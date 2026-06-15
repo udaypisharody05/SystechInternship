@@ -1,0 +1,51 @@
+customer_id,customer_name,email,phone,city,state,customer_segment,signup_date,loyalty_points
+C001,Rahul Iyer,rahul.iyer1@example.com,9896233790,Bengaluru,Karnataka,Regular,2024-08-16,1143
+C002,Ananya Iyer,ananya.iyer2@example.com,9193349856,Jaipur,Rajasthan,Regular,2024-02-02,244
+C003,Arjun Mehta,arjun.mehta3@example.com,9349817734,Chennai,Tamil Nadu,Regular,2024-01-28,4597
+C004,Priya Verma,priya.verma4@example.com,9550455977,Jaipur,Rajasthan,Regular,2025-08-26,2278
+C005,Vikram Sharma,vikram.sharma5@example.com,9849621470,Delhi,Delhi,Regular,2024-10-11,1273
+C006,Neha Verma,neha.verma6@example.com,9209747451,Kochi,Kerala,Regular,2024-04-09,2940
+C007,Aman Rao,aman.rao7@example.com,9384027113,Ahmedabad,Gujarat,Premium,2026-01-17,3763
+C008,Diya Pillai,diya.pillai8@example.com,9506448196,Mumbai,Maharashtra,Regular,2024-10-27,2962
+C009,Karan Mishra,karan.mishra9@example.com,9856528252,Chennai,Tamil Nadu,Regular,2025-11-08,1866
+C010,Sneha Das,sneha.das10@example.com,9349957310,Mumbai,Maharashtra,Premium,2025-01-24,2277
+C011,Rohan Khan,rohan.khan11@example.com,9274648506,Kochi,Kerala,Regular,2024-08-02,2187
+C012,Meera Mehta,meera.mehta12@example.com,9781802744,Ahmedabad,Gujarat,Regular,2026-01-16,2005
+C013,Aditya Reddy,aditya.reddy13@example.com,9507437181,Kolkata,West Bengal,Regular,2025-10-17,4562
+C014,Isha Menon,isha.menon14@example.com,9924970419,Kochi,Kerala,Premium,2024-08-22,262
+C015,Nikhil Patel,nikhil.patel15@example.com,9387484583,Pune,Maharashtra,Regular,2025-08-03,2577
+C016,Tanvi Verma,tanvi.verma16@example.com,9524806516,Kolkata,West Bengal,Premium,2025-10-20,3758
+C017,Varun Singh,varun.singh17@example.com,9249926919,Hyderabad,Telangana,Regular,2025-07-28,4415
+C018,Pooja Kapoor,pooja.kapoor18@example.com,9560027313,Ahmedabad,Gujarat,Premium,2025-02-12,2965
+C019,Siddharth Menon,siddharth.menon19@example.com,9647099690,Delhi,Delhi,Regular,2026-02-12,385
+C020,Aditi Iyer,aditi.iyer20@example.com,9773715057,Delhi,Delhi,Regular,2025-11-27,3458
+C021,Manav Shetty,manav.shetty21@example.com,9513140753,Mumbai,Maharashtra,Regular,2025-04-24,4334
+C022,Kavya Kapoor,kavya.kapoor22@example.com,9112327652,Jaipur,Rajasthan,Premium,2024-04-27,4398
+C023,Harsh Kapoor,harsh.kapoor23@example.com,9219778234,Kochi,Kerala,Regular,2024-06-10,3716
+C024,Riya Sharma,riya.sharma24@example.com,9637500247,Hyderabad,Telangana,Premium,2025-06-03,871
+C025,Yash Das,yash.das25@example.com,9753876785,Jaipur,Rajasthan,Regular,2025-01-17,1323
+C026,Naina Pillai,naina.pillai26@example.com,9100614068,Jaipur,Rajasthan,Regular,2025-05-15,159
+C027,Dev Iyer,dev.iyer27@example.com,9992994062,Kochi,Kerala,Premium,2024-09-02,474
+C028,Sanya Menon,sanya.menon28@example.com,9184564737,Ahmedabad,Gujarat,Regular,2025-05-12,566
+C029,Aryan Pillai,aryan.pillai29@example.com,9237859287,Delhi,Delhi,Premium,2025-07-16,1352
+C030,Tara Kapoor,tara.kapoor30@example.com,9751325257,Jaipur,Rajasthan,Regular,2024-08-04,4417
+C031,Kabir Verma,kabir.verma31@example.com,9528414718,Hyderabad,Telangana,Corporate,2025-10-27,3059
+C032,Avni Khan,avni.khan32@example.com,9584779555,Jaipur,Rajasthan,Regular,2024-08-18,524
+C033,Ishan Patel,ishan.patel33@example.com,9731691672,Bengaluru,Karnataka,Regular,2025-08-25,1804
+C034,Mira Sharma,mira.sharma34@example.com,9860038427,Mumbai,Maharashtra,Premium,2024-08-22,552
+C035,Rudra Nair,rudra.nair35@example.com,9176082500,Kochi,Kerala,Regular,2024-10-12,3976
+C036,Kiara Verma,kiara.verma36@example.com,9242068763,Jaipur,Rajasthan,Premium,2025-08-07,4720
+C037,Neil Bose,neil.bose37@example.com,9942478695,Chennai,Tamil Nadu,Regular,2025-02-20,1559
+C038,Anika Iyer,anika.iyer38@example.com,9807577342,Mumbai,Maharashtra,Regular,2025-03-09,3367
+C039,Reyansh Khan,reyansh.khan39@example.com,9823019672,Bengaluru,Karnataka,Premium,2025-10-23,806
+C040,Myra Nair,myra.nair40@example.com,9881913386,Pune,Maharashtra,Regular,2024-04-21,2036
+C041,Sameer Verma,sameer.verma41@example.com,9675832441,Chennai,Tamil Nadu,Regular,2025-03-08,1503
+C042,Shruti Kapoor,shruti.kapoor42@example.com,9368227631,Kolkata,West Bengal,Premium,2024-03-18,3630
+C043,Akash Pillai,akash.pillai43@example.com,9154318806,Mumbai,Maharashtra,Premium,2025-07-07,120
+C044,Lavanya Mehta,lavanya.mehta44@example.com,9278575192,Chennai,Tamil Nadu,Regular,2025-05-07,1751
+C045,Gaurav Gupta,gaurav.gupta45@example.com,9276777762,Bengaluru,Karnataka,Regular,2025-02-03,2172
+C046,Mitali Khan,mitali.khan46@example.com,9554200826,Hyderabad,Telangana,Premium,2026-01-18,4552
+C047,Rakesh Bose,rakesh.bose47@example.com,9303901283,Delhi,Delhi,Regular,2024-02-29,4744
+C048,Divya Pillai,divya.pillai48@example.com,9903132646,Bengaluru,Karnataka,Regular,2024-02-21,4785
+C049,Sahil Bose,sahil.bose49@example.com,9670292350,Jaipur,Rajasthan,Regular,2025-06-04,656
+C050,Nisha Reddy,nisha.reddy50@example.com,9738914080,Mumbai,Maharashtra,Regular,2024-08-28,3307
