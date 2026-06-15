@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS dim_customer CASCADE;
 
 CREATE TABLE dim_customer (
     customer_key SERIAL PRIMARY KEY,
-    customer_id VARCHAR(10) UNIQUE NOT NULL,
+    customer_id VARCHAR(10) NOT NULL,
     customer_name VARCHAR(100),
     email VARCHAR(100),
     phone VARCHAR(20),
@@ -14,30 +14,48 @@ CREATE TABLE dim_customer (
     state VARCHAR(50),
     customer_segment VARCHAR(30),
     signup_date DATE,
-    loyalty_points INTEGER
+    loyalty_points INTEGER,
+
+    effective_start_date DATE NOT NULL,
+    effective_end_date DATE,
+    is_current BOOLEAN NOT NULL DEFAULT TRUE,
+
+    UNIQUE (customer_id, effective_start_date)
 );
 
 CREATE TABLE dim_product (
     product_key SERIAL PRIMARY KEY,
-    product_id VARCHAR(10) UNIQUE NOT NULL,
+    product_id VARCHAR(10) NOT NULL,
     product_name VARCHAR(100),
     category VARCHAR(50),
     brand VARCHAR(50),
     unit_price NUMERIC(10, 2),
     cost_price NUMERIC(10, 2),
     supplier VARCHAR(100),
-    stock_quantity INTEGER
+    stock_quantity INTEGER,
+
+    effective_start_date DATE NOT NULL,
+    effective_end_date DATE,
+    is_current BOOLEAN NOT NULL DEFAULT TRUE,
+
+    UNIQUE (product_id, effective_start_date)
 );
 
 CREATE TABLE dim_store (
     store_key SERIAL PRIMARY KEY,
-    store_id VARCHAR(10) UNIQUE NOT NULL,
+    store_id VARCHAR(10) NOT NULL,
     store_name VARCHAR(100),
     city VARCHAR(50),
     state VARCHAR(50),
     store_type VARCHAR(30),
     opening_date DATE,
-    manager_name VARCHAR(100)
+    manager_name VARCHAR(100),
+
+    effective_start_date DATE NOT NULL,
+    effective_end_date DATE,
+    is_current BOOLEAN NOT NULL DEFAULT TRUE,
+
+    UNIQUE (store_id, effective_start_date)
 );
 
 CREATE TABLE dim_date (
@@ -68,3 +86,12 @@ CREATE TABLE fact_sales (
     payment_method VARCHAR(30),
     channel VARCHAR(30)
 );
+
+CREATE INDEX idx_dim_customer_current
+ON dim_customer(customer_id, is_current);
+
+CREATE INDEX idx_dim_product_current
+ON dim_product(product_id, is_current);
+
+CREATE INDEX idx_dim_store_current
+ON dim_store(store_id, is_current);

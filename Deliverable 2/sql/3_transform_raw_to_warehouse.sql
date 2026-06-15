@@ -7,7 +7,10 @@ INSERT INTO dim_customer (
     state,
     customer_segment,
     signup_date,
-    loyalty_points
+    loyalty_points,
+    effective_start_date,
+    effective_end_date,
+    is_current
 )
 SELECT DISTINCT
     customer_id,
@@ -18,7 +21,10 @@ SELECT DISTINCT
     state,
     customer_segment,
     signup_date,
-    loyalty_points
+    loyalty_points,
+    CURRENT_DATE AS effective_start_date,
+    NULL::DATE AS effective_end_date,
+    TRUE AS is_current
 FROM raw_customers;
 
 
@@ -30,7 +36,10 @@ INSERT INTO dim_product (
     unit_price,
     cost_price,
     supplier,
-    stock_quantity
+    stock_quantity,
+    effective_start_date,
+    effective_end_date,
+    is_current
 )
 SELECT DISTINCT
     product_id,
@@ -40,7 +49,10 @@ SELECT DISTINCT
     unit_price,
     cost_price,
     supplier,
-    stock_quantity
+    stock_quantity,
+    CURRENT_DATE AS effective_start_date,
+    NULL::DATE AS effective_end_date,
+    TRUE AS is_current
 FROM raw_products;
 
 
@@ -51,7 +63,10 @@ INSERT INTO dim_store (
     state,
     store_type,
     opening_date,
-    manager_name
+    manager_name,
+    effective_start_date,
+    effective_end_date,
+    is_current
 )
 SELECT DISTINCT
     store_id,
@@ -60,7 +75,10 @@ SELECT DISTINCT
     state,
     store_type,
     opening_date,
-    manager_name
+    manager_name,
+    CURRENT_DATE AS effective_start_date,
+    NULL::DATE AS effective_end_date,
+    TRUE AS is_current
 FROM raw_stores;
 
 
@@ -129,9 +147,12 @@ SELECT
 FROM raw_sales rs
 JOIN dim_customer dc
     ON rs.customer_id = dc.customer_id
+    AND dc.is_current = TRUE
 JOIN dim_product dp
     ON rs.product_id = dp.product_id
+    AND dp.is_current = TRUE
 JOIN dim_store ds
     ON rs.store_id = ds.store_id
+    AND ds.is_current = TRUE
 JOIN dim_date dd
     ON rs.sale_date = dd.full_date;
