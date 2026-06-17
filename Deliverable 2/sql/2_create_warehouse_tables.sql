@@ -18,9 +18,8 @@ CREATE TABLE dim_customer (
 
     effective_start_date DATE NOT NULL,
     effective_end_date DATE,
-    is_current BOOLEAN NOT NULL DEFAULT TRUE,
+    is_current BOOLEAN NOT NULL DEFAULT TRUE
 
-    UNIQUE (customer_id, effective_start_date)
 );
 
 CREATE TABLE dim_product (
@@ -36,9 +35,8 @@ CREATE TABLE dim_product (
 
     effective_start_date DATE NOT NULL,
     effective_end_date DATE,
-    is_current BOOLEAN NOT NULL DEFAULT TRUE,
+    is_current BOOLEAN NOT NULL DEFAULT TRUE
 
-    UNIQUE (product_id, effective_start_date)
 );
 
 CREATE TABLE dim_store (
@@ -53,9 +51,8 @@ CREATE TABLE dim_store (
 
     effective_start_date DATE NOT NULL,
     effective_end_date DATE,
-    is_current BOOLEAN NOT NULL DEFAULT TRUE,
+    is_current BOOLEAN NOT NULL DEFAULT TRUE
 
-    UNIQUE (store_id, effective_start_date)
 );
 
 CREATE TABLE dim_date (
