@@ -52,6 +52,28 @@ The project uses generated raw CSV data:
 | 4_generate_reports.py | Generates business reports |
 | run_pipeline.py | Runs the full ELT pipeline end-to-end |
 
+## SCD Type 2 Implementation
+
+The project implements true Slowly Changing Dimension Type 2 logic for customer, product, and store dimensions.
+
+The SCD Type 2 workflow includes:
+
+1. Comparing incoming raw records with current dimension records.
+2. Detecting changes in tracked attributes.
+3. Expiring old current records by setting `is_current = false`.
+4. Updating `effective_end_date` for expired records.
+5. Inserting a new current record with updated values.
+6. Preserving historical versions of dimension records.
+
+The following scripts support SCD Type 2:
+
+| Script | Purpose |
+|---|---|
+| `5_apply_scd2_changes.py` | Applies SCD Type 2 change detection and history preservation |
+| `6_simulate_source_changes.py` | Simulates changes in source/raw tables for testing SCD Type 2 behavior |
+
+This enables the warehouse to maintain historical changes such as customer segment changes, product price changes, and store manager updates.
+
 ## Reports Generated
 
 - monthly_revenue.csv
