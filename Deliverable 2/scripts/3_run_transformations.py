@@ -15,8 +15,10 @@ SQL_FILES = [
 
 def main():
     parser = argparse.ArgumentParser(description="Transform one incremental batch.")
-    parser.add_argument("batch_id", type=int, choices=[1, 2])
+    parser.add_argument("batch_id", type=int)
     args = parser.parse_args()
+    if args.batch_id < 1:
+        parser.error("batch_id must be a positive integer")
 
     with psycopg2.connect(**DB_CONFIG) as connection:
         with connection.cursor() as cursor:
@@ -33,13 +35,6 @@ def main():
                 raise ValueError(
                     f"Expected batch {expected_batch}, received batch {args.batch_id}."
                 )
-
-            cursor.execute(
-                "SELECT COUNT(*) FROM raw_sales WHERE batch_id = %s;",
-                (args.batch_id,),
-            )
-            if cursor.fetchone()[0] == 0:
-                raise ValueError(f"No raw sales found for batch {args.batch_id}.")
 
             for sql_file in SQL_FILES:
                 cursor.execute(

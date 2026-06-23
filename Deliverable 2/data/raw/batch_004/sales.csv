@@ -1,0 +1,1 @@
+sale_id,customer_id,product_id,store_id,sale_date,quantity,discount_percent,payment_method,channel

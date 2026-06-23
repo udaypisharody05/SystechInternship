@@ -45,8 +45,11 @@ def load_csv(cursor, path, table_name, key_column, batch_id):
 
 def main():
     parser = argparse.ArgumentParser(description="Load one CSV batch into raw tables.")
-    parser.add_argument("batch_id", type=int, choices=[1, 2])
+    parser.add_argument("batch_id", type=int)
     args = parser.parse_args()
+    if args.batch_id < 1:
+        parser.error("batch_id must be a positive integer")
+
     batch_dir = BASE_DIR / "data" / "raw" / f"batch_{args.batch_id:03d}"
 
     if not batch_dir.is_dir():

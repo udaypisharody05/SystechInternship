@@ -1,0 +1,2 @@
+customer_id,customer_name,email,phone,city,state,customer_segment,signup_date,loyalty_points
+CUSTM_001,Uday Pisharody,udayp@gmail.com,9606760360,bengaluru,karnataka,premium,2026-06-05,500

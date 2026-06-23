@@ -98,6 +98,27 @@ Batch transformations must run in sequence. The metadata check rejects batch
 2 before batch 1 and rejects a transformation batch that has already
 completed.
 
+## Enter a manual incremental batch
+
+After completing the initial demo batches, run:
+
+```powershell
+python "Deliverable 2/scripts/9_manual_batch_entry.py"
+```
+
+The CLI reads `etl_metadata`, creates the next folder such as `batch_003`,
+and lets you add customers, update existing customers, and add sales. It
+writes all entries to CSV files first, including header-only product, store,
+customer, or sales files when they have no rows.
+
+The script then runs the existing raw loader and incremental transformation
+for that batch. New sales must reference an existing or newly staged customer,
+an existing product and store, and a payment method. A newly entered payment
+method is added through the existing `dim_payment_method` incremental load.
+
+After loading, the CLI prints metadata, history for updated customers, sales
+counts by batch, and the total fact count.
+
 ## Validation SQL
 
 ```powershell
