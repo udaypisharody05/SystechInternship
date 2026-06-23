@@ -1,99 +1,109 @@
-# Deliverable 2: Sports Goods Store ELT Pipeline
+# Deliverable 2: Incremental PostgreSQL ELT Pipeline
 
-## Objective
+This project demonstrates a two-batch ELT pipeline for a sports-goods retailer.
+It loads CSV data into PostgreSQL raw tables and incrementally populates a
+small star schema.
 
-This project implements an ELT pipeline for a sports goods retail store. The pipeline extracts raw business data, loads it into PostgreSQL staging tables, transforms it into a data warehouse schema, and generates business reports.
+## Demo data
 
-## Business Scenario
+`0_generate_raw_data.py` creates immutable batch folders:
 
-The project simulates a sports goods store that sells products across categories such as cricket, football, badminton, tennis, fitness, running, swimming, sportswear, and accessories.
+- `batch_001`: 100 customers, 50 products, 10 stores, and 500 sales.
+- `batch_002`: one changed customer (`CUST001`), 10 new customers, and
+  100 new sales.
 
-## ELT Pipeline Flow
+The generator uses a fixed random seed, so the demo is reproducible.
 
-Raw CSV Data  
-→ Load into PostgreSQL Raw Tables  
-→ Transform into Warehouse Tables  
-→ Generate Business Reports  
+## Database design
 
-## Dataset
+Raw tables:
 
-The project uses generated raw CSV data:
+- `raw_customers`
+- `raw_products`
+- `raw_stores`
+- `raw_sales`
 
-- 50 customers
-- 40 products
-- 10 stores
-- 200 sales transactions
+Every raw table includes `batch_id`, `created_at`, and `updated_at`.
+Rows are unique within a batch and raw loads use an upsert, making staging
+reloads safe.
 
-## Database Layers
+Warehouse tables:
 
-### Raw/Staging Tables
+- `dim_customer` — true SCD Type 2
+- `dim_product` — simple Type 1 upsert
+- `dim_store` — simple Type 1 upsert
+- `dim_payment_method` — incrementally populated from sales
+- `dim_date`
+- `fact_sales` — incremental, with a unique `sale_id` and source `batch_id`
+- `etl_metadata` — tracks the last successful batch and load timestamp
 
-- raw_customers
-- raw_products
-- raw_stores
-- raw_sales
+## Customer SCD Type 2
 
-### Data Warehouse Tables
+For each incoming batch, customer attributes are compared using PostgreSQL
+`IS DISTINCT FROM`, which handles nullable values safely.
 
-- dim_customer
-- dim_product
-- dim_store
-- dim_date
-- fact_sales
+When a current customer changes:
 
-## Scripts
+1. The old row receives an `effective_end_date` and `is_current = false`.
+2. A new row is inserted with a new surrogate key.
+3. Existing facts continue to reference the historical customer row.
+4. New facts reference the new current row.
 
-| Script | Purpose |
-|---|---|
-| 0_generate_raw_data.py | Generates raw CSV files |
-| 1_create_raw_tables.py | Creates PostgreSQL raw tables |
-| 2_load_raw_data.py | Loads CSV data into raw tables |
-| 3_run_transformations.py | Creates warehouse tables and transforms raw data |
-| 4_generate_reports.py | Generates business reports |
-| run_pipeline.py | Runs the full ELT pipeline end-to-end |
+A partial unique index guarantees at most one current row per customer.
 
-## SCD Type 2 Implementation
+## Install
 
-The project implements true Slowly Changing Dimension Type 2 logic for customer, product, and store dimensions.
+Run from the repository root:
 
-The SCD Type 2 workflow includes:
-
-1. Comparing incoming raw records with current dimension records.
-2. Detecting changes in tracked attributes.
-3. Expiring old current records by setting `is_current = false`.
-4. Updating `effective_end_date` for expired records.
-5. Inserting a new current record with updated values.
-6. Preserving historical versions of dimension records.
-
-The following scripts support SCD Type 2:
-
-| Script | Purpose |
-|---|---|
-| `5_apply_scd2_changes.py` | Applies SCD Type 2 change detection and history preservation |
-| `6_simulate_source_changes.py` | Simulates changes in source/raw tables for testing SCD Type 2 behavior |
-
-This enables the warehouse to maintain historical changes such as customer segment changes, product price changes, and store manager updates.
-
-## Reports Generated
-
-- monthly_revenue.csv
-- sales_by_category.csv
-- top_selling_products.csv
-- revenue_by_store.csv
-- revenue_by_channel.csv
-
-## Technologies Used
-
-- Python
-- PostgreSQL
-- SQL
-- Pandas
-- psycopg2
-- DBeaver
-
-## How to Run
-
-Install dependencies:
-
-```bash
+```powershell
 pip install -r requirements.txt
+```
+
+Database connection settings are currently in
+`Deliverable 2/scripts/db_config.py`. Ensure the configured PostgreSQL
+database exists and is reachable.
+
+## Run the complete two-batch demo
+
+Warning: the setup step drops and recreates this deliverable's raw and
+warehouse tables.
+
+```powershell
+python "Deliverable 2/scripts/demo_incremental_load.py"
+```
+
+The demo prints:
+
+- Warehouse row counts after batch 1 and batch 2
+- Sales counts grouped by `batch_id`
+- `etl_metadata`
+- Both SCD2 versions of `CUST001`
+- Payment-method sales totals
+
+It also regenerates report CSVs under `Deliverable 2/reports/`.
+
+## Run the stages manually
+
+```powershell
+python "Deliverable 2/scripts/0_generate_raw_data.py"
+python "Deliverable 2/scripts/1_create_raw_tables.py"
+python "Deliverable 2/scripts/2_load_raw_data.py" 1
+python "Deliverable 2/scripts/3_run_transformations.py" 1
+python "Deliverable 2/scripts/2_load_raw_data.py" 2
+python "Deliverable 2/scripts/3_run_transformations.py" 2
+python "Deliverable 2/scripts/4_generate_reports.py"
+```
+
+Batch transformations must run in sequence. The metadata check rejects batch
+2 before batch 1 and rejects a transformation batch that has already
+completed.
+
+## Validation SQL
+
+```powershell
+psql -U postgres -d systech -f "Deliverable 2/sql/6_validation_queries.sql"
+```
+
+The validation queries show metadata, `CUST001` history, sales by batch,
+warehouse counts, payment-method totals, duplicate sales, and invalid current
+customer counts.

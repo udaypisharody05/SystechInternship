@@ -1,0 +1,11 @@
+store_id,store_name,city,state,store_type,opening_date,manager_name
+STORE001,SportZone Bengaluru,Bengaluru,Karnataka,Flagship,2021-01-01,Manager 01
+STORE002,SportZone Mumbai,Mumbai,Maharashtra,Flagship,2022-02-01,Manager 02
+STORE003,SportZone Delhi,Delhi,Delhi,Flagship,2023-03-01,Manager 03
+STORE004,SportZone Chennai,Chennai,Tamil Nadu,Outlet,2024-04-01,Manager 04
+STORE005,SportZone Hyderabad,Hyderabad,Telangana,Outlet,2021-05-01,Manager 05
+STORE006,SportZone Kochi,Kochi,Kerala,Outlet,2022-06-01,Manager 06
+STORE007,SportZone Pune,Pune,Maharashtra,Outlet,2023-07-01,Manager 07
+STORE008,SportZone Kolkata,Kolkata,West Bengal,Outlet,2024-08-01,Manager 08
+STORE009,SportZone Jaipur,Jaipur,Rajasthan,Outlet,2021-09-01,Manager 09
+STORE010,SportZone Ahmedabad,Ahmedabad,Gujarat,Outlet,2022-10-01,Manager 10

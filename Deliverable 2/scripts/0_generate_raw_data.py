@@ -1,244 +1,168 @@
 import csv
 import random
+from datetime import date, timedelta
 from pathlib import Path
-from datetime import datetime, timedelta
+
 
 BASE_DIR = Path(__file__).resolve().parents[1]
-RAW_DATA_DIR = BASE_DIR / "data" / "raw"
-RAW_DATA_DIR.mkdir(parents=True, exist_ok=True)
-
-random.seed(42)
-
-
-CUSTOMER_FIRST_NAMES = [
-    "Rahul", "Ananya", "Arjun", "Priya", "Vikram", "Neha", "Aman", "Diya", "Karan", "Sneha",
-    "Rohan", "Meera", "Aditya", "Isha", "Nikhil", "Tanvi", "Varun", "Pooja", "Siddharth", "Aditi",
-    "Manav", "Kavya", "Harsh", "Riya", "Yash", "Naina", "Dev", "Sanya", "Aryan", "Tara",
-    "Kabir", "Avni", "Ishan", "Mira", "Rudra", "Kiara", "Neil", "Anika", "Reyansh", "Myra",
-    "Sameer", "Shruti", "Akash", "Lavanya", "Gaurav", "Mitali", "Rakesh", "Divya", "Sahil", "Nisha"
-]
-
-LAST_NAMES = [
-    "Sharma", "Nair", "Mehta", "Iyer", "Singh", "Reddy", "Verma", "Menon", "Kapoor", "Das",
-    "Patel", "Rao", "Gupta", "Joshi", "Khan", "Bose", "Chopra", "Pillai", "Mishra", "Shetty"
-]
-
-CITIES = [
-    ("Bengaluru", "Karnataka"),
-    ("Mumbai", "Maharashtra"),
-    ("Delhi", "Delhi"),
-    ("Chennai", "Tamil Nadu"),
-    ("Hyderabad", "Telangana"),
-    ("Kochi", "Kerala"),
-    ("Pune", "Maharashtra"),
-    ("Kolkata", "West Bengal"),
-    ("Jaipur", "Rajasthan"),
-    ("Ahmedabad", "Gujarat")
-]
-
-PRODUCTS = [
-    ("Cricket Bat", "Cricket", "SG", 2499, 1550, "SportLine Distributors"),
-    ("Cricket Ball Pack", "Cricket", "Kookaburra", 599, 320, "Elite Sports Supply"),
-    ("Batting Gloves", "Cricket", "SS", 1299, 700, "ProGear Wholesale"),
-    ("Football", "Football", "Nivia", 899, 470, "SportLine Distributors"),
-    ("Football Studs", "Football", "Adidas", 3499, 2300, "Urban Sports Co"),
-    ("Goalkeeper Gloves", "Football", "Puma", 1499, 850, "Elite Sports Supply"),
-    ("Badminton Racket", "Badminton", "Yonex", 1799, 980, "ShuttlePro Traders"),
-    ("Shuttlecock Tube", "Badminton", "Li-Ning", 749, 410, "ShuttlePro Traders"),
-    ("Badminton Shoes", "Badminton", "Yonex", 2999, 1900, "Urban Sports Co"),
-    ("Tennis Racket", "Tennis", "Wilson", 3499, 2300, "CourtKing Suppliers"),
-    ("Tennis Ball Can", "Tennis", "Head", 499, 250, "CourtKing Suppliers"),
-    ("Tennis Shoes", "Tennis", "Nike", 4299, 2900, "Urban Sports Co"),
-    ("Basketball", "Basketball", "Spalding", 1299, 760, "Elite Sports Supply"),
-    ("Basketball Shoes", "Basketball", "Nike", 4999, 3300, "Urban Sports Co"),
-    ("Skipping Rope", "Fitness", "Decathlon", 399, 180, "FitMax Wholesale"),
-    ("Dumbbell Set", "Fitness", "Domyos", 2999, 1900, "FitMax Wholesale"),
-    ("Yoga Mat", "Fitness", "Boldfit", 799, 420, "FitMax Wholesale"),
-    ("Gym Gloves", "Fitness", "Decathlon", 499, 220, "FitMax Wholesale"),
-    ("Resistance Band", "Fitness", "Boldfit", 699, 320, "FitMax Wholesale"),
-    ("Running Shoes", "Running", "Adidas", 3999, 2600, "Urban Sports Co"),
-    ("Running Shorts", "Running", "Puma", 999, 480, "ActiveWear Hub"),
-    ("Sports T-Shirt", "Sportswear", "Puma", 699, 310, "ActiveWear Hub"),
-    ("Track Pants", "Sportswear", "Nike", 1599, 850, "ActiveWear Hub"),
-    ("Sports Jacket", "Sportswear", "Adidas", 2999, 1750, "ActiveWear Hub"),
-    ("Swimming Goggles", "Swimming", "Speedo", 799, 390, "AquaSport Traders"),
-    ("Swimming Cap", "Swimming", "Speedo", 399, 170, "AquaSport Traders"),
-    ("Kickboard", "Swimming", "Decathlon", 999, 540, "AquaSport Traders"),
-    ("Table Tennis Paddle", "Table Tennis", "Stag", 999, 520, "Indoor Sports Supply"),
-    ("Table Tennis Balls", "Table Tennis", "Stag", 299, 120, "Indoor Sports Supply"),
-    ("TT Table Net", "Table Tennis", "Stag", 699, 310, "Indoor Sports Supply"),
-    ("Hockey Stick", "Hockey", "Cosco", 1499, 820, "Elite Sports Supply"),
-    ("Hockey Ball", "Hockey", "Nivia", 349, 150, "Elite Sports Supply"),
-    ("Boxing Gloves", "Combat Sports", "USI", 1999, 1100, "ProGear Wholesale"),
-    ("Punching Bag", "Combat Sports", "USI", 4499, 3100, "ProGear Wholesale"),
-    ("Cycling Helmet", "Cycling", "Btwin", 1599, 850, "CyclePro Suppliers"),
-    ("Cycling Gloves", "Cycling", "Btwin", 699, 300, "CyclePro Suppliers"),
-    ("Water Bottle", "Accessories", "Nike", 499, 190, "ActiveWear Hub"),
-    ("Sports Bag", "Accessories", "Puma", 1499, 790, "ActiveWear Hub"),
-    ("Wrist Band", "Accessories", "Nivia", 199, 70, "SportLine Distributors"),
-    ("Ankle Support", "Accessories", "Boldfit", 599, 260, "FitMax Wholesale")
-]
+RAW_DIR = BASE_DIR / "data" / "raw"
+PAYMENT_METHODS = ["UPI", "Credit Card", "Debit Card", "Cash", "Net Banking"]
+CHANNELS = ["In-Store", "Online"]
 
 
-def random_date(start_date, end_date):
-    days_between = (end_date - start_date).days
-    return start_date + timedelta(days=random.randint(0, days_between))
-
-
-def write_csv(file_name, headers, rows):
-    file_path = RAW_DATA_DIR / file_name
-
-    with open(file_path, mode="w", newline="", encoding="utf-8") as file:
+def write_csv(batch_name, file_name, headers, rows):
+    batch_dir = RAW_DIR / batch_name
+    batch_dir.mkdir(parents=True, exist_ok=True)
+    with open(batch_dir / file_name, "w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
         writer.writerow(headers)
         writer.writerows(rows)
 
-    print(f"Created {file_path}")
+
+def random_date(rng, start, end):
+    return start + timedelta(days=rng.randint(0, (end - start).days))
 
 
-def generate_customers():
+def build_customers(start_id, count, rng):
+    cities = [
+        ("Bengaluru", "Karnataka"), ("Mumbai", "Maharashtra"),
+        ("Delhi", "Delhi"), ("Chennai", "Tamil Nadu"),
+        ("Hyderabad", "Telangana"), ("Kochi", "Kerala"),
+        ("Pune", "Maharashtra"), ("Kolkata", "West Bengal"),
+        ("Jaipur", "Rajasthan"), ("Ahmedabad", "Gujarat"),
+    ]
+    segments = ["Regular", "Premium", "Corporate"]
     rows = []
-
-    for i in range(1, 51):
-        first_name = CUSTOMER_FIRST_NAMES[i - 1]
-        last_name = random.choice(LAST_NAMES)
-        city, state = random.choice(CITIES)
-
-        customer_id = f"C{i:03d}"
-        customer_name = f"{first_name} {last_name}"
-        email = f"{first_name.lower()}.{last_name.lower()}{i}@example.com"
-        phone = f"9{random.randint(100000000, 999999999)}"
-        segment = random.choices(
-            ["Regular", "Premium", "Corporate"],
-            weights=[60, 30, 10]
-        )[0]
-        signup_date = random_date(datetime(2024, 1, 1), datetime(2026, 5, 31)).date()
-        loyalty_points = random.randint(0, 5000)
-
+    for number in range(start_id, start_id + count):
+        city, state = cities[(number - 1) % len(cities)]
         rows.append([
-            customer_id, customer_name, email, phone, city, state,
-            segment, signup_date, loyalty_points
+            f"CUST{number:03d}",
+            f"Customer {number:03d}",
+            f"customer{number:03d}@example.com",
+            f"9{rng.randint(100000000, 999999999)}",
+            city,
+            state,
+            rng.choice(segments),
+            random_date(rng, date(2023, 1, 1), date(2025, 12, 31)),
+            rng.randint(0, 5000),
         ])
-
     return rows
 
 
-def generate_products():
+def build_products(rng):
+    categories = [
+        "Cricket", "Football", "Badminton", "Tennis", "Fitness",
+        "Running", "Swimming", "Sportswear", "Accessories", "Cycling",
+    ]
+    brands = ["SG", "Adidas", "Yonex", "Wilson", "Decathlon"]
     rows = []
-
-    for i, product in enumerate(PRODUCTS, start=1):
-        product_name, category, brand, unit_price, cost_price, supplier = product
-        product_id = f"P{i:03d}"
-        stock_quantity = random.randint(20, 250)
-
+    for number in range(1, 51):
+        unit_price = rng.randrange(399, 5000, 50)
         rows.append([
-            product_id, product_name, category, brand, unit_price,
-            cost_price, supplier, stock_quantity
+            f"PROD{number:03d}",
+            f"Sports Product {number:03d}",
+            categories[(number - 1) % len(categories)],
+            brands[(number - 1) % len(brands)],
+            unit_price,
+            round(unit_price * 0.62, 2),
+            f"Supplier {((number - 1) % 10) + 1:02d}",
+            rng.randint(20, 250),
         ])
-
     return rows
 
 
-def generate_stores():
-    store_names = [
-        "SportZone Bengaluru", "SportZone Mumbai", "SportZone Delhi",
-        "SportZone Chennai", "SportZone Hyderabad", "SportZone Kochi",
-        "SportZone Pune", "SportZone Kolkata", "SportZone Jaipur",
-        "SportZone Ahmedabad"
+def build_stores():
+    locations = [
+        ("Bengaluru", "Karnataka"), ("Mumbai", "Maharashtra"),
+        ("Delhi", "Delhi"), ("Chennai", "Tamil Nadu"),
+        ("Hyderabad", "Telangana"), ("Kochi", "Kerala"),
+        ("Pune", "Maharashtra"), ("Kolkata", "West Bengal"),
+        ("Jaipur", "Rajasthan"), ("Ahmedabad", "Gujarat"),
+    ]
+    return [
+        [
+            f"STORE{number:03d}",
+            f"SportZone {city}",
+            city,
+            state,
+            "Flagship" if number <= 3 else "Outlet",
+            date(2021 + ((number - 1) % 4), ((number - 1) % 12) + 1, 1),
+            f"Manager {number:02d}",
+        ]
+        for number, (city, state) in enumerate(locations, start=1)
     ]
 
-    managers = [
-        "Amit Rao", "Suresh Menon", "Karthik Iyer", "Raj Malhotra", "Farhan Khan",
-        "Deepak Nair", "Vivek Gupta", "Sanjay Bose", "Arvind Patel", "Nitin Joshi"
-    ]
 
+def build_sales(start_id, count, customer_ids, rng, start_date, end_date):
     rows = []
-
-    for i, ((city, state), store_name, manager) in enumerate(zip(CITIES, store_names, managers), start=1):
-        store_id = f"S{i:03d}"
-        store_type = "Flagship" if city in ["Bengaluru", "Mumbai", "Delhi"] else "Outlet"
-        opening_date = random_date(datetime(2021, 1, 1), datetime(2025, 12, 31)).date()
-
+    for number in range(start_id, start_id + count):
         rows.append([
-            store_id, store_name, city, state, store_type, opening_date, manager
+            f"SALE{number:05d}",
+            rng.choice(customer_ids),
+            f"PROD{rng.randint(1, 50):03d}",
+            f"STORE{rng.randint(1, 10):03d}",
+            random_date(rng, start_date, end_date),
+            rng.choices([1, 2, 3, 4, 5], weights=[45, 25, 15, 10, 5])[0],
+            rng.choice([0, 5, 10, 15, 20]),
+            rng.choice(PAYMENT_METHODS),
+            rng.choices(CHANNELS, weights=[70, 30])[0],
         ])
-
-    return rows
-
-
-def generate_sales(customers, products, stores):
-    rows = []
-    start_date = datetime(2026, 1, 1)
-    end_date = datetime(2026, 6, 15)
-
-    payment_methods = ["UPI", "Credit Card", "Debit Card", "Cash", "Net Banking"]
-    channels = ["In-Store", "Online"]
-
-    for i in range(1, 201):
-        sale_id = f"SA{i:04d}"
-
-        customer_id = random.choice(customers)[0]
-        product = random.choice(products)
-        product_id = product[0]
-        store_id = random.choice(stores)[0]
-
-        sale_date = random_date(start_date, end_date).date()
-        quantity = random.choices([1, 2, 3, 4, 5], weights=[45, 25, 15, 10, 5])[0]
-        discount_percent = random.choices([0, 5, 10, 15, 20], weights=[40, 25, 20, 10, 5])[0]
-        payment_method = random.choice(payment_methods)
-        channel = random.choices(channels, weights=[70, 30])[0]
-
-        rows.append([
-            sale_id, customer_id, product_id, store_id, sale_date,
-            quantity, discount_percent, payment_method, channel
-        ])
-
     return rows
 
 
 def main():
-    customers = generate_customers()
-    products = generate_products()
-    stores = generate_stores()
-    sales = generate_sales(customers, products, stores)
+    rng = random.Random(42)
+    customer_headers = [
+        "customer_id", "customer_name", "email", "phone", "city", "state",
+        "customer_segment", "signup_date", "loyalty_points",
+    ]
+    product_headers = [
+        "product_id", "product_name", "category", "brand", "unit_price",
+        "cost_price", "supplier", "stock_quantity",
+    ]
+    store_headers = [
+        "store_id", "store_name", "city", "state", "store_type",
+        "opening_date", "manager_name",
+    ]
+    sales_headers = [
+        "sale_id", "customer_id", "product_id", "store_id", "sale_date",
+        "quantity", "discount_percent", "payment_method", "channel",
+    ]
 
-    write_csv(
-        "customers.csv",
-        [
-            "customer_id", "customer_name", "email", "phone", "city", "state",
-            "customer_segment", "signup_date", "loyalty_points"
-        ],
-        customers
+    batch1_customers = build_customers(1, 100, rng)
+    products = build_products(rng)
+    stores = build_stores()
+    batch1_sales = build_sales(
+        1, 500, [row[0] for row in batch1_customers], rng,
+        date(2026, 1, 1), date(2026, 6, 30),
     )
 
-    write_csv(
-        "products.csv",
-        [
-            "product_id", "product_name", "category", "brand", "unit_price",
-            "cost_price", "supplier", "stock_quantity"
-        ],
-        products
+    new_customers = build_customers(101, 10, rng)
+    changed_customer = list(batch1_customers[0])
+    changed_customer[4] = "Mumbai"
+    changed_customer[5] = "Maharashtra"
+    changed_customer[6] = "Premium"
+    changed_customer[8] = int(changed_customer[8]) + 750
+    batch2_customers = [changed_customer] + new_customers
+    batch2_sales = build_sales(
+        501, 100,
+        [f"CUST{number:03d}" for number in range(1, 111)],
+        rng, date(2026, 7, 1), date(2026, 8, 31),
     )
+    batch2_sales[0][1] = "CUST001"
 
-    write_csv(
-        "stores.csv",
-        [
-            "store_id", "store_name", "city", "state", "store_type",
-            "opening_date", "manager_name"
-        ],
-        stores
-    )
+    write_csv("batch_001", "customers.csv", customer_headers, batch1_customers)
+    write_csv("batch_001", "products.csv", product_headers, products)
+    write_csv("batch_001", "stores.csv", store_headers, stores)
+    write_csv("batch_001", "sales.csv", sales_headers, batch1_sales)
 
-    write_csv(
-        "sales.csv",
-        [
-            "sale_id", "customer_id", "product_id", "store_id", "sale_date",
-            "quantity", "discount_percent", "payment_method", "channel"
-        ],
-        sales
-    )
+    write_csv("batch_002", "customers.csv", customer_headers, batch2_customers)
+    write_csv("batch_002", "products.csv", product_headers, [])
+    write_csv("batch_002", "stores.csv", store_headers, [])
+    write_csv("batch_002", "sales.csv", sales_headers, batch2_sales)
 
-    print("Raw data generation completed successfully.")
+    print("Generated batch_001: 100 customers, 50 products, 10 stores, 500 sales")
+    print("Generated batch_002: 1 changed customer, 10 new customers, 100 sales")
 
 
 if __name__ == "__main__":

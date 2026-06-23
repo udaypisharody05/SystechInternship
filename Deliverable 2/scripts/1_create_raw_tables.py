@@ -4,33 +4,19 @@ from db_config import DB_CONFIG
 
 
 BASE_DIR = Path(__file__).resolve().parents[1]
-SQL_FILE = BASE_DIR / "sql" / "1_create_raw_tables.sql"
-
-
-def run_sql_file(cursor, file_path):
-    with open(file_path, "r", encoding="utf-8") as file:
-        sql_script = file.read()
-        cursor.execute(sql_script)
+SQL_FILES = [
+    BASE_DIR / "sql" / "1_create_raw_tables.sql",
+    BASE_DIR / "sql" / "2_create_warehouse_tables.sql",
+]
 
 
 def main():
-    try:
-        connection = psycopg2.connect(**DB_CONFIG)
-        cursor = connection.cursor()
-
-        run_sql_file(cursor, SQL_FILE)
-
-        connection.commit()
-        print("Raw tables created successfully.")
-
-    except Exception as error:
-        print("Error while creating raw tables:", error)
-
-    finally:
-        if "cursor" in locals():
-            cursor.close()
-        if "connection" in locals():
-            connection.close()
+    with psycopg2.connect(**DB_CONFIG) as connection:
+        with connection.cursor() as cursor:
+            for sql_file in SQL_FILES:
+                cursor.execute(sql_file.read_text(encoding="utf-8"))
+                print(f"Executed {sql_file.name}")
+    print("Raw, metadata, and warehouse tables created successfully.")
 
 
 if __name__ == "__main__":

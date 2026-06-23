@@ -1,0 +1,12 @@
+customer_id,customer_name,email,phone,city,state,customer_segment,signup_date,loyalty_points
+CUST001,Customer 001,customer001@example.com,9786579303,Mumbai,Maharashtra,Premium,2023-02-21,3003
+CUST101,Customer 101,customer101@example.com,9805627914,Bengaluru,Karnataka,Premium,2025-07-15,934
+CUST102,Customer 102,customer102@example.com,9204622201,Mumbai,Maharashtra,Corporate,2024-03-30,17
+CUST103,Customer 103,customer103@example.com,9466529415,Delhi,Delhi,Premium,2024-08-20,4486
+CUST104,Customer 104,customer104@example.com,9660477218,Chennai,Tamil Nadu,Premium,2023-08-06,375
+CUST105,Customer 105,customer105@example.com,9276260482,Hyderabad,Telangana,Premium,2023-10-15,3352
+CUST106,Customer 106,customer106@example.com,9214849044,Kochi,Kerala,Premium,2024-02-06,1536
+CUST107,Customer 107,customer107@example.com,9229649816,Pune,Maharashtra,Premium,2024-03-17,3744
+CUST108,Customer 108,customer108@example.com,9985358270,Kolkata,West Bengal,Regular,2024-11-23,882
+CUST109,Customer 109,customer109@example.com,9912982916,Jaipur,Rajasthan,Premium,2023-04-06,4823
+CUST110,Customer 110,customer110@example.com,9232305596,Ahmedabad,Gujarat,Premium,2025-07-25,4827

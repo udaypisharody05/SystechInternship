@@ -1,158 +1,55 @@
-INSERT INTO dim_customer (
-    customer_id,
-    customer_name,
-    email,
-    phone,
-    city,
-    state,
-    customer_segment,
-    signup_date,
-    loyalty_points,
-    effective_start_date,
-    effective_end_date,
-    is_current
-)
-SELECT DISTINCT
-    customer_id,
-    customer_name,
-    email,
-    phone,
-    city,
-    state,
-    customer_segment,
-    signup_date,
-    loyalty_points,
-    CURRENT_DATE AS effective_start_date,
-    NULL::DATE AS effective_end_date,
-    TRUE AS is_current
-FROM raw_customers;
-
-
+-- Simple Type 1 dimensions plus date and payment-method dimensions.
 INSERT INTO dim_product (
-    product_id,
-    product_name,
-    category,
-    brand,
-    unit_price,
-    cost_price,
-    supplier,
-    stock_quantity,
-    effective_start_date,
-    effective_end_date,
-    is_current
-)
-SELECT DISTINCT
-    product_id,
-    product_name,
-    category,
-    brand,
-    unit_price,
-    cost_price,
-    supplier,
-    stock_quantity,
-    CURRENT_DATE AS effective_start_date,
-    NULL::DATE AS effective_end_date,
-    TRUE AS is_current
-FROM raw_products;
-
-
-INSERT INTO dim_store (
-    store_id,
-    store_name,
-    city,
-    state,
-    store_type,
-    opening_date,
-    manager_name,
-    effective_start_date,
-    effective_end_date,
-    is_current
-)
-SELECT DISTINCT
-    store_id,
-    store_name,
-    city,
-    state,
-    store_type,
-    opening_date,
-    manager_name,
-    CURRENT_DATE AS effective_start_date,
-    NULL::DATE AS effective_end_date,
-    TRUE AS is_current
-FROM raw_stores;
-
-
-INSERT INTO dim_date (
-    date_key,
-    full_date,
-    day,
-    month,
-    month_name,
-    quarter,
-    year
-)
-SELECT DISTINCT
-    TO_CHAR(sale_date, 'YYYYMMDD')::INTEGER AS date_key,
-    sale_date AS full_date,
-    EXTRACT(DAY FROM sale_date)::INTEGER AS day,
-    EXTRACT(MONTH FROM sale_date)::INTEGER AS month,
-    TO_CHAR(sale_date, 'Month') AS month_name,
-    EXTRACT(QUARTER FROM sale_date)::INTEGER AS quarter,
-    EXTRACT(YEAR FROM sale_date)::INTEGER AS year
-FROM raw_sales;
-
-
-INSERT INTO fact_sales (
-    sale_id,
-    customer_key,
-    product_key,
-    store_key,
-    date_key,
-    quantity,
-    unit_price,
-    discount_percent,
-    gross_amount,
-    discount_amount,
-    net_amount,
-    cost_amount,
-    profit_amount,
-    payment_method,
-    channel
+    product_id, product_name, category, brand, unit_price,
+    cost_price, supplier, stock_quantity
 )
 SELECT
-    rs.sale_id,
-    dc.customer_key,
-    dp.product_key,
-    ds.store_key,
-    dd.date_key,
-    rs.quantity,
-    dp.unit_price,
-    rs.discount_percent,
+    product_id, product_name, category, brand, unit_price,
+    cost_price, supplier, stock_quantity
+FROM raw_products
+WHERE batch_id = %(batch_id)s
+ON CONFLICT (product_id) DO UPDATE SET
+    product_name = EXCLUDED.product_name,
+    category = EXCLUDED.category,
+    brand = EXCLUDED.brand,
+    unit_price = EXCLUDED.unit_price,
+    cost_price = EXCLUDED.cost_price,
+    supplier = EXCLUDED.supplier,
+    stock_quantity = EXCLUDED.stock_quantity,
+    updated_at = CURRENT_TIMESTAMP;
 
-    rs.quantity * dp.unit_price AS gross_amount,
+INSERT INTO dim_store (
+    store_id, store_name, city, state, store_type, opening_date, manager_name
+)
+SELECT
+    store_id, store_name, city, state, store_type, opening_date, manager_name
+FROM raw_stores
+WHERE batch_id = %(batch_id)s
+ON CONFLICT (store_id) DO UPDATE SET
+    store_name = EXCLUDED.store_name,
+    city = EXCLUDED.city,
+    state = EXCLUDED.state,
+    store_type = EXCLUDED.store_type,
+    opening_date = EXCLUDED.opening_date,
+    manager_name = EXCLUDED.manager_name,
+    updated_at = CURRENT_TIMESTAMP;
 
-    (rs.quantity * dp.unit_price) * (rs.discount_percent / 100.0) AS discount_amount,
+INSERT INTO dim_payment_method (payment_method_name)
+SELECT DISTINCT payment_method
+FROM raw_sales
+WHERE batch_id = %(batch_id)s
+ON CONFLICT (payment_method_name) DO UPDATE SET
+    updated_at = CURRENT_TIMESTAMP;
 
-    (rs.quantity * dp.unit_price)
-        - ((rs.quantity * dp.unit_price) * (rs.discount_percent / 100.0)) AS net_amount,
-
-    rs.quantity * dp.cost_price AS cost_amount,
-
-    ((rs.quantity * dp.unit_price)
-        - ((rs.quantity * dp.unit_price) * (rs.discount_percent / 100.0)))
-        - (rs.quantity * dp.cost_price) AS profit_amount,
-
-    rs.payment_method,
-    rs.channel
-FROM raw_sales rs
-JOIN dim_customer dc
-    ON rs.customer_id = dc.customer_id
-    AND dc.is_current = TRUE
-JOIN dim_product dp
-    ON rs.product_id = dp.product_id
-    AND dp.is_current = TRUE
-JOIN dim_store ds
-    ON rs.store_id = ds.store_id
-    AND ds.is_current = TRUE
-JOIN dim_date dd
-    ON rs.sale_date = dd.full_date;
+INSERT INTO dim_date (date_key, full_date, day, month, month_name, quarter, year)
+SELECT DISTINCT
+    TO_CHAR(sale_date, 'YYYYMMDD')::INTEGER,
+    sale_date,
+    EXTRACT(DAY FROM sale_date)::INTEGER,
+    EXTRACT(MONTH FROM sale_date)::INTEGER,
+    TRIM(TO_CHAR(sale_date, 'Month')),
+    EXTRACT(QUARTER FROM sale_date)::INTEGER,
+    EXTRACT(YEAR FROM sale_date)::INTEGER
+FROM raw_sales
+WHERE batch_id = %(batch_id)s
+ON CONFLICT (date_key) DO NOTHING;

@@ -1,38 +1,14 @@
-import psycopg2
+"""Compatibility wrapper for the former standalone SCD2 step."""
+
+import subprocess
+import sys
 from pathlib import Path
-from db_config import DB_CONFIG
-
-
-BASE_DIR = Path(__file__).resolve().parents[1]
-SQL_FILE = BASE_DIR / "sql" / "5_apply_scd2_changes.sql"
-
-
-def run_sql_file(cursor, file_path):
-    with open(file_path, "r", encoding="utf-8") as file:
-        sql_script = file.read()
-        cursor.execute(sql_script)
-
-    print(f"Executed {file_path.name}")
 
 
 def main():
-    try:
-        connection = psycopg2.connect(**DB_CONFIG)
-        cursor = connection.cursor()
-
-        run_sql_file(cursor, SQL_FILE)
-
-        connection.commit()
-        print("SCD Type 2 changes applied successfully.")
-
-    except Exception as error:
-        print("Error while applying SCD Type 2 changes:", error)
-
-    finally:
-        if "cursor" in locals():
-            cursor.close()
-        if "connection" in locals():
-            connection.close()
+    batch_id = sys.argv[1] if len(sys.argv) > 1 else "2"
+    script = Path(__file__).with_name("3_run_transformations.py")
+    subprocess.run([sys.executable, str(script), batch_id], check=True)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,101 @@
+customer_id,customer_name,email,phone,city,state,customer_segment,signup_date,loyalty_points
+CUST001,Customer 001,customer001@example.com,9786579303,Bengaluru,Karnataka,Regular,2023-02-21,2253
+CUST002,Customer 002,customer002@example.com,9362950628,Mumbai,Maharashtra,Regular,2023-10-13,839
+CUST003,Customer 003,customer003@example.com,9826600539,Delhi,Delhi,Corporate,2023-06-28,4837
+CUST004,Customer 004,customer004@example.com,9553035110,Chennai,Tamil Nadu,Regular,2023-03-03,767
+CUST005,Customer 005,customer005@example.com,9334760738,Hyderabad,Telangana,Regular,2025-10-31,4931
+CUST006,Customer 006,customer006@example.com,9128492780,Kochi,Kerala,Corporate,2024-02-12,4464
+CUST007,Customer 007,customer007@example.com,9550455977,Pune,Maharashtra,Regular,2025-07-08,4827
+CUST008,Customer 008,customer008@example.com,9398704996,Kolkata,West Bengal,Regular,2023-11-23,3462
+CUST009,Customer 009,customer009@example.com,9465341213,Jaipur,Rajasthan,Premium,2023-11-15,1763
+CUST010,Customer 010,customer010@example.com,9919795579,Ahmedabad,Gujarat,Premium,2023-07-29,759
+CUST011,Customer 011,customer011@example.com,9507943839,Bengaluru,Karnataka,Regular,2025-01-05,2817
+CUST012,Customer 012,customer012@example.com,9748245888,Mumbai,Maharashtra,Premium,2023-03-30,3763
+CUST013,Customer 013,customer013@example.com,9675770529,Delhi,Delhi,Regular,2025-02-14,645
+CUST014,Customer 014,customer014@example.com,9692749116,Chennai,Tamil Nadu,Premium,2025-01-10,4729
+CUST015,Customer 015,customer015@example.com,9306468299,Hyderabad,Telangana,Corporate,2023-05-23,375
+CUST016,Customer 016,customer016@example.com,9810026086,Kochi,Kerala,Regular,2024-08-15,653
+CUST017,Customer 017,customer017@example.com,9349957310,Pune,Maharashtra,Regular,2025-02-17,2277
+CUST018,Customer 018,customer018@example.com,9586845604,Kolkata,West Bengal,Corporate,2025-01-17,1332
+CUST019,Customer 019,customer019@example.com,9497478786,Jaipur,Rajasthan,Premium,2024-03-05,2187
+CUST020,Customer 020,customer020@example.com,9853573823,Ahmedabad,Gujarat,Corporate,2023-05-27,4990
+CUST021,Customer 021,customer021@example.com,9781802744,Bengaluru,Karnataka,Regular,2025-12-29,2005
+CUST022,Customer 022,customer022@example.com,9275452091,Mumbai,Maharashtra,Premium,2025-02-16,2211
+CUST023,Customer 023,customer023@example.com,9787194506,Delhi,Delhi,Corporate,2024-03-25,2656
+CUST024,Customer 024,customer024@example.com,9924970419,Chennai,Tamil Nadu,Regular,2024-04-14,262
+CUST025,Customer 025,customer025@example.com,9964411347,Hyderabad,Telangana,Premium,2025-04-01,2193
+CUST026,Customer 026,customer026@example.com,9171069472,Kochi,Kerala,Regular,2024-10-06,1741
+CUST027,Customer 027,customer027@example.com,9803771909,Pune,Maharashtra,Premium,2025-03-21,3758
+CUST028,Customer 028,customer028@example.com,9253407200,Kolkata,West Bengal,Premium,2023-10-13,2020
+CUST029,Customer 029,customer029@example.com,9899925830,Jaipur,Rajasthan,Corporate,2024-06-22,4788
+CUST030,Customer 030,customer030@example.com,9560027313,Ahmedabad,Gujarat,Corporate,2025-03-28,2965
+CUST031,Customer 031,customer031@example.com,9335493870,Bengaluru,Karnataka,Regular,2025-11-09,4042
+CUST032,Customer 032,customer032@example.com,9197613238,Mumbai,Maharashtra,Regular,2023-08-13,1252
+CUST033,Customer 033,customer033@example.com,9773715057,Delhi,Delhi,Regular,2025-05-14,4885
+CUST034,Customer 034,customer034@example.com,9168212356,Chennai,Tamil Nadu,Premium,2025-02-20,4881
+CUST035,Customer 035,customer035@example.com,9602564736,Hyderabad,Telangana,Corporate,2024-05-29,4532
+CUST036,Customer 036,customer036@example.com,9112327652,Kochi,Kerala,Corporate,2023-08-23,4398
+CUST037,Customer 037,customer037@example.com,9906248900,Pune,Maharashtra,Premium,2024-11-27,913
+CUST038,Customer 038,customer038@example.com,9415143362,Kolkata,West Bengal,Premium,2023-11-20,3716
+CUST039,Customer 039,customer039@example.com,9103484630,Jaipur,Rajasthan,Corporate,2024-06-23,4100
+CUST040,Customer 040,customer040@example.com,9918150683,Ahmedabad,Gujarat,Regular,2025-11-05,871
+CUST041,Customer 041,customer041@example.com,9771410971,Bengaluru,Karnataka,Premium,2025-11-05,4988
+CUST042,Customer 042,customer042@example.com,9313579170,Mumbai,Maharashtra,Regular,2025-02-04,1323
+CUST043,Customer 043,customer043@example.com,9679153816,Delhi,Delhi,Corporate,2023-01-02,4906
+CUST044,Customer 044,customer044@example.com,9448059918,Chennai,Tamil Nadu,Premium,2023-02-09,916
+CUST045,Customer 045,customer045@example.com,9489747629,Hyderabad,Telangana,Premium,2024-05-05,474
+CUST046,Customer 046,customer046@example.com,9358633898,Kochi,Kerala,Corporate,2023-06-11,701
+CUST047,Customer 047,customer047@example.com,9885879795,Pune,Maharashtra,Premium,2023-05-22,4363
+CUST048,Customer 048,customer048@example.com,9922308461,Kolkata,West Bengal,Regular,2023-09-20,3893
+CUST049,Customer 049,customer049@example.com,9690347116,Jaipur,Rajasthan,Regular,2024-06-26,4322
+CUST050,Customer 050,customer050@example.com,9751325257,Ahmedabad,Gujarat,Premium,2024-03-09,4417
+CUST051,Customer 051,customer051@example.com,9910959828,Bengaluru,Karnataka,Corporate,2024-02-16,2553
+CUST052,Customer 052,customer052@example.com,9528414718,Mumbai,Maharashtra,Corporate,2025-02-03,3588
+CUST053,Customer 053,customer053@example.com,9655742829,Delhi,Delhi,Premium,2023-09-05,2030
+CUST054,Customer 054,customer054@example.com,9341266931,Chennai,Tamil Nadu,Regular,2024-11-23,172
+CUST055,Customer 055,customer055@example.com,9731691672,Hyderabad,Telangana,Corporate,2024-04-16,4820
+CUST056,Customer 056,customer056@example.com,9336456621,Kochi,Kerala,Regular,2023-05-26,482
+CUST057,Customer 057,customer057@example.com,9345824373,Pune,Maharashtra,Regular,2023-03-06,2706
+CUST058,Customer 058,customer058@example.com,9176082500,Kolkata,West Bengal,Corporate,2024-05-02,2281
+CUST059,Customer 059,customer059@example.com,9818309417,Jaipur,Rajasthan,Premium,2024-03-14,4417
+CUST060,Customer 060,customer060@example.com,9242068763,Ahmedabad,Gujarat,Corporate,2025-08-26,1990
+CUST061,Customer 061,customer061@example.com,9942478695,Bengaluru,Karnataka,Premium,2025-04-13,1559
+CUST062,Customer 062,customer062@example.com,9201281557,Mumbai,Maharashtra,Regular,2025-06-01,2902
+CUST063,Customer 063,customer063@example.com,9554814084,Delhi,Delhi,Premium,2025-08-14,443
+CUST064,Customer 064,customer064@example.com,9823019672,Chennai,Tamil Nadu,Corporate,2023-07-21,496
+CUST065,Customer 065,customer065@example.com,9532311310,Hyderabad,Telangana,Corporate,2024-11-25,895
+CUST066,Customer 066,customer066@example.com,9366992705,Kochi,Kerala,Regular,2024-01-25,4393
+CUST067,Customer 067,customer067@example.com,9581695135,Pune,Maharashtra,Regular,2025-05-14,1503
+CUST068,Customer 068,customer068@example.com,9399085574,Kolkata,West Bengal,Premium,2024-05-26,617
+CUST069,Customer 069,customer069@example.com,9575808013,Jaipur,Rajasthan,Corporate,2023-07-20,414
+CUST070,Customer 070,customer070@example.com,9800235246,Ahmedabad,Gujarat,Corporate,2023-01-31,764
+CUST071,Customer 071,customer071@example.com,9909134796,Bengaluru,Karnataka,Regular,2023-12-07,3329
+CUST072,Customer 072,customer072@example.com,9621453189,Mumbai,Maharashtra,Premium,2024-03-13,3285
+CUST073,Customer 073,customer073@example.com,9162959284,Delhi,Delhi,Regular,2025-02-15,17
+CUST074,Customer 074,customer074@example.com,9519212169,Chennai,Tamil Nadu,Premium,2025-07-20,2336
+CUST075,Customer 075,customer075@example.com,9554200826,Hyderabad,Telangana,Corporate,2025-09-23,1268
+CUST076,Customer 076,customer076@example.com,9303901283,Kochi,Kerala,Premium,2024-03-21,479
+CUST077,Customer 077,customer077@example.com,9721890096,Pune,Maharashtra,Corporate,2023-05-05,2569
+CUST078,Customer 078,customer078@example.com,9161380746,Kolkata,West Bengal,Regular,2025-09-03,4119
+CUST079,Customer 079,customer079@example.com,9670292350,Jaipur,Rajasthan,Regular,2023-04-27,4160
+CUST080,Customer 080,customer080@example.com,9186019028,Ahmedabad,Gujarat,Regular,2023-05-21,4874
+CUST081,Customer 081,customer081@example.com,9172972420,Bengaluru,Karnataka,Corporate,2024-04-26,3307
+CUST082,Customer 082,customer082@example.com,9228727266,Mumbai,Maharashtra,Corporate,2024-05-19,4742
+CUST083,Customer 083,customer083@example.com,9738360085,Delhi,Delhi,Regular,2023-06-17,3434
+CUST084,Customer 084,customer084@example.com,9805849060,Chennai,Tamil Nadu,Corporate,2025-12-06,2591
+CUST085,Customer 085,customer085@example.com,9379995032,Hyderabad,Telangana,Regular,2024-10-05,1955
+CUST086,Customer 086,customer086@example.com,9385201412,Kochi,Kerala,Premium,2023-09-26,2457
+CUST087,Customer 087,customer087@example.com,9590941149,Pune,Maharashtra,Premium,2023-05-29,76
+CUST088,Customer 088,customer088@example.com,9592080329,Kolkata,West Bengal,Corporate,2023-07-24,600
+CUST089,Customer 089,customer089@example.com,9677280546,Jaipur,Rajasthan,Regular,2025-11-02,2172
+CUST090,Customer 090,customer090@example.com,9242224154,Ahmedabad,Gujarat,Premium,2023-05-21,2001
+CUST091,Customer 091,customer091@example.com,9496776692,Bengaluru,Karnataka,Premium,2023-11-20,3589
+CUST092,Customer 092,customer092@example.com,9995226828,Mumbai,Maharashtra,Corporate,2024-09-11,4333
+CUST093,Customer 093,customer093@example.com,9108399996,Delhi,Delhi,Corporate,2024-09-05,848
+CUST094,Customer 094,customer094@example.com,9244193987,Chennai,Tamil Nadu,Premium,2023-08-25,876
+CUST095,Customer 095,customer095@example.com,9897163846,Hyderabad,Telangana,Corporate,2023-11-15,2231
+CUST096,Customer 096,customer096@example.com,9402533494,Kochi,Kerala,Corporate,2024-03-07,2808
+CUST097,Customer 097,customer097@example.com,9318610946,Pune,Maharashtra,Corporate,2024-06-24,4140
+CUST098,Customer 098,customer098@example.com,9624557080,Kolkata,West Bengal,Premium,2023-04-15,756
+CUST099,Customer 099,customer099@example.com,9781057736,Jaipur,Rajasthan,Premium,2024-07-20,361
+CUST100,Customer 100,customer100@example.com,9103807155,Ahmedabad,Gujarat,Premium,2023-09-25,2145

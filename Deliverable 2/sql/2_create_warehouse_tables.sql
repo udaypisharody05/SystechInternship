@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS fact_sales CASCADE;
 DROP TABLE IF EXISTS dim_date CASCADE;
+DROP TABLE IF EXISTS dim_payment_method CASCADE;
 DROP TABLE IF EXISTS dim_store CASCADE;
 DROP TABLE IF EXISTS dim_product CASCADE;
 DROP TABLE IF EXISTS dim_customer CASCADE;
@@ -15,16 +16,20 @@ CREATE TABLE dim_customer (
     customer_segment VARCHAR(30),
     signup_date DATE,
     loyalty_points INTEGER,
-
-    effective_start_date DATE NOT NULL,
-    effective_end_date DATE,
-    is_current BOOLEAN NOT NULL DEFAULT TRUE
-
+    effective_start_date TIMESTAMPTZ NOT NULL,
+    effective_end_date TIMESTAMPTZ,
+    is_current BOOLEAN NOT NULL DEFAULT TRUE,
+    source_batch_id INTEGER NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE UNIQUE INDEX uq_dim_customer_current
+ON dim_customer(customer_id) WHERE is_current = TRUE;
 
 CREATE TABLE dim_product (
     product_key SERIAL PRIMARY KEY,
-    product_id VARCHAR(10) NOT NULL,
+    product_id VARCHAR(10) UNIQUE NOT NULL,
     product_name VARCHAR(100),
     category VARCHAR(50),
     brand VARCHAR(50),
@@ -32,27 +37,28 @@ CREATE TABLE dim_product (
     cost_price NUMERIC(10, 2),
     supplier VARCHAR(100),
     stock_quantity INTEGER,
-
-    effective_start_date DATE NOT NULL,
-    effective_end_date DATE,
-    is_current BOOLEAN NOT NULL DEFAULT TRUE
-
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE dim_store (
     store_key SERIAL PRIMARY KEY,
-    store_id VARCHAR(10) NOT NULL,
+    store_id VARCHAR(10) UNIQUE NOT NULL,
     store_name VARCHAR(100),
     city VARCHAR(50),
     state VARCHAR(50),
     store_type VARCHAR(30),
     opening_date DATE,
     manager_name VARCHAR(100),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
-    effective_start_date DATE NOT NULL,
-    effective_end_date DATE,
-    is_current BOOLEAN NOT NULL DEFAULT TRUE
-
+CREATE TABLE dim_payment_method (
+    payment_method_key SERIAL PRIMARY KEY,
+    payment_method_name VARCHAR(30) UNIQUE NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE dim_date (
@@ -68,10 +74,11 @@ CREATE TABLE dim_date (
 CREATE TABLE fact_sales (
     sales_key SERIAL PRIMARY KEY,
     sale_id VARCHAR(20) UNIQUE NOT NULL,
-    customer_key INTEGER REFERENCES dim_customer(customer_key),
-    product_key INTEGER REFERENCES dim_product(product_key),
-    store_key INTEGER REFERENCES dim_store(store_key),
-    date_key INTEGER REFERENCES dim_date(date_key),
+    customer_key INTEGER NOT NULL REFERENCES dim_customer(customer_key),
+    product_key INTEGER NOT NULL REFERENCES dim_product(product_key),
+    store_key INTEGER NOT NULL REFERENCES dim_store(store_key),
+    payment_method_key INTEGER NOT NULL REFERENCES dim_payment_method(payment_method_key),
+    date_key INTEGER NOT NULL REFERENCES dim_date(date_key),
     quantity INTEGER,
     unit_price NUMERIC(10, 2),
     discount_percent NUMERIC(5, 2),
@@ -80,15 +87,8 @@ CREATE TABLE fact_sales (
     net_amount NUMERIC(12, 2),
     cost_amount NUMERIC(12, 2),
     profit_amount NUMERIC(12, 2),
-    payment_method VARCHAR(30),
-    channel VARCHAR(30)
+    channel VARCHAR(30),
+    batch_id INTEGER NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-
-CREATE INDEX idx_dim_customer_current
-ON dim_customer(customer_id, is_current);
-
-CREATE INDEX idx_dim_product_current
-ON dim_product(product_id, is_current);
-
-CREATE INDEX idx_dim_store_current
-ON dim_store(store_id, is_current);
